@@ -239,5 +239,53 @@
             //Assert
             $this->assertEquals($test_course, $result);
         }
+
+        function test_addStudent()
+        {
+            //Arrange
+            $name = "Steve Beekman";
+            $date = "2015-08-23";
+            $test_student = new Student($name, $date);
+            $test_student->save();
+
+            $title = "Intro to Typing: COM-91";
+            $teacher = "Ancient Raven";
+            $time = "TH 9PM-11PM";
+            $semester = "Fall";
+            $test_course = new Course($title, $teacher, $time, $semester);
+            $test_course->save();
+
+            //Act
+            $result = [$test_student];
+            $test_course->addStudent($test_student);
+
+            //Assert
+            $this->assertEquals($test_course->getStudents(), $result);
+        }
+
+        Function test_getStudents()
+        {
+            //Arrange
+            $name = "Steve Beekman";
+            $date = "2015-08-23";
+            $test_student = new Student($name, $date);
+            $test_student->save();
+
+            $title = "Intro to Typing: COM-91";
+            $teacher = "Ancient Raven";
+            $time = "TH 9PM-11PM";
+            $semester = "Fall";
+            $test_course = new Course($title, $teacher, $time, $semester);
+            $test_course->save();
+
+            //Act
+            $test_course->addStudent($test_student);
+            $result = $test_course->getStudents();
+
+            //Assert
+            $this->assertEquals([$test_student], $result);
+
+        }
+
     }
 ?>

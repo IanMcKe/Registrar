@@ -148,5 +148,52 @@
             }
             return $found_course;
         }
+
+        function addStudent($student)
+        {
+            $GLOBALS['DB']->exec("INSERT INTO students_courses (student_id, course_id) VALUES ({$student->getId()}, {$this->getId()});");
+        }
+
+        //the join statment is not functioning correctly yet. Currently returning an empty array from the fetchAll. Have fun!
+        function getStudents()
+        {
+            $query = $GLOBALS['DB']->query("SELECT students.* FROM
+            courses JOIN students_courses ON (courses.id = students_courses.student_id)
+                    JOIN students ON (students_courses.student_id = students.id)
+            WHERE courses.id = {$this->getId()};");
+            $returned_students = $query->fetchAll(PDO::FETCH_ASSOC);
+            var_dump($returned_students);
+
+            $students = [];
+            foreach($returned_students as $student) {
+                $name = $student['name'];
+                $date = $student['date'];
+                $id = $student['id'];
+                $new_student = new Student($name, $date, $id);
+                array_push($students, $new_student);
+            }
+            return $students;
+        }
+
+        //Going to reqrite this with a join statment in the query rather than using two queries
+        // function getStudents()
+        // {
+        //     $query = $GLOBALS['DB']->query("SELECT student_id FROM students_courses WHERE course_id = {$this->getId()};");
+        //     $student_ids = $query->fetchAll(PDO::FETCH_ASSOC);
+        //
+        //     $students= [];
+        //     foreach($student_ids as $id) {
+        //         $student_id = $id['student_id'];
+        //         $result = $GLOBALS['DB']->query("SELECT * FROM students WHERE id = {$student_id};");
+        //         $returned_student = $result->fetchAll(PDO::FETCH_ASSOC);
+        //
+        //         $name = $returned_student[0]['name'];
+        //         $date = $returned_student[0]['date'];
+        //         $id = $returned_student[0]['id'];
+        //         $new_student = new Student($name, $date, $id);
+        //         array_push($students, $new_student);
+        //     }
+        //     return $students;
+        // }
     }
 ?>
