@@ -5,7 +5,10 @@
 </head>
 <body>
     <div class="container">
-        <h1>{{ course.getTitle }} {{ course.getTeacher }} {{ course.getTime }} {{ course. getSemester }}</h1>
+        <h1>{{ course.getTitle }}</h1>
+        <h1>{{ course.getTeacher }}</h1>
+        <h1>{{ course.getTime }}</h1>
+        <h1>{{ course. getSemester }}</h1>
 
         {% if students is not empty %}
             <p>Here are the students enrolled in this course:</p>
