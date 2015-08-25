@@ -1,0 +1,45 @@
+<html>
+    <head>
+        <title>Courses</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div class="container">
+
+            <h1>Courses</h1>
+
+            {% if courses is not empty %}
+                <p>Here are all the courses:</p>
+                <ul>
+                    {% for course in courses %}
+                        <li><a href="/courses/{{ course.getId }}">{{ course.getTitle }} {{ course.getTeacher }} {{ course.getTime }} {{ course.getSemester }}</a></li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            <form action ='/courses' method='post'>
+                <label for 'title'>Course name:</label>
+                <input id='title' name='title' type='text'>
+                <label for 'teacher'>Course teacher:</label>
+                <input id='teacher' name='teacher' type='text'>
+                <label for 'time'>Course time:</label>
+                <input id='time' name='time' type='text'>
+                <label for 'semester'>Course semester</label>
+                <input id='semester' name='semester' type='text'>
+
+
+
+                <button type='submit'>Add course</button>
+            </form>
+
+
+            <!-- <form action ='/delete_categories' method='post'>
+                <button type='submit' class="btn btn-danger">Clear</button>
+            </form> -->
+
+            <form action="/">
+                <button type="submit" class="btn btn-default">Return Home</button>
+            </form>
+        </div>
+    </body>
+</html>

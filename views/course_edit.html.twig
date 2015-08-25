@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <title>Course Update</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    </head>
+    <body>
+        <div class="container">
+            <h1>Update {{ course.getTitle }} {{ course.getTeacher }} {{ course.getTime }} {{ course.getSemester }} </h1>
+
+            <form action="/course/{{ course.getId }}" method="post">
+              <input name="_method" type="hidden" value="patch">
+
+              <label for="title">Rename the course:</label>
+              <input id="title" name="title" type="text">
+              <label for="teacher">Rename teacher:</label>
+              <input id="teacher" name="teacher" type="text">
+              <label for="time">Change time:</label>
+              <input id="time" name="time" type="text">
+              <label for="semester">Change semester:</label>
+              <input id="semester" name="semester" type="text">
+
+              <button type="submit">Update</button>
+            </form>
+        </div>
+    </body>
+</html>

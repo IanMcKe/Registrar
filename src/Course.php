@@ -154,16 +154,15 @@
             $GLOBALS['DB']->exec("INSERT INTO students_courses (student_id, course_id) VALUES ({$student->getId()}, {$this->getId()});");
         }
 
-        //the join statment is not functioning correctly yet. Currently returning an empty array from the fetchAll. Have fun!
+        //working with join statement
         function getStudents()
         {
             $query = $GLOBALS['DB']->query("SELECT students.* FROM
-            courses JOIN students_courses ON (courses.id = students_courses.student_id)
+            courses JOIN students_courses ON (courses.id = students_courses.course_id)
                     JOIN students ON (students_courses.student_id = students.id)
             WHERE courses.id = {$this->getId()};");
             $returned_students = $query->fetchAll(PDO::FETCH_ASSOC);
-            var_dump($returned_students);
-
+            
             $students = [];
             foreach($returned_students as $student) {
                 $name = $student['name'];

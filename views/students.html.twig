@@ -1,0 +1,36 @@
+<html>
+<head>
+    <title>To Do List</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Student List</h1>
+        {% if students is not empty %}
+            <p>Here are all of the students:</p>
+            <ul>
+                {% for student in students %}
+                    <li><a href="/student/{{ student.getId }}">{{ student.getName }}</a> Date Enrolled: {{ student.getDate }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <form action='/students' method='post'>
+            <label for='name'>Student Name:</label>
+            <input id='name' name='name' type='text'>
+            <label for="date">Date Enrolled:</label>
+            <input id="date" type="date" name="date">
+            <button type='submit'>Add student</button>
+        </form>
+
+        <!-- <form action='/delete_tasks' method='post'>
+            <button type='submit' class="btn btn-danger">Clear</button>
+        </form> -->
+
+        <form action="/">
+            <button type="submit" class="btn btn-default">Return Home</button>
+        </form>
+    </div>
+</body>
+</html>

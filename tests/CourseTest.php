@@ -263,7 +263,7 @@
             $this->assertEquals($test_course->getStudents(), $result);
         }
 
-        Function test_getStudents()
+        function test_getStudents()
         {
             //Arrange
             $name = "Steve Beekman";

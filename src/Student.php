@@ -105,5 +105,31 @@
             }
             return $found_student;
         }
+
+        function addCourse($course)
+        {
+            $GLOBALS['DB']->exec("INSERT INTO students_courses (student_id, course_id) VALUES ({$this->getId()}, {$course->getId()});");
+        }
+
+        function getCourses()
+        {
+            $query = $GLOBALS['DB']->query("SELECT courses.* FROM
+            students JOIN students_courses ON (students.id = students_courses.student_id)
+                     JOIN courses ON (students_courses.course_id = courses.id)
+            WHERE students.id = {$this->getId()};");
+            $returned_courses = $query->fetchAll(PDO::FETCH_ASSOC);
+
+            $courses = [];
+            foreach($returned_courses as $course){
+                $title = $course['title'];
+                $teacher = $course['teacher'];
+                $time = $course['time'];
+                $semester = $course['semester'];
+                $id = $course['id'];
+                $new_course = new Course($title, $teacher, $time, $semester, $id);
+                array_push($courses, $new_course);
+            }
+            return $courses;
+        }
     }
 ?>
