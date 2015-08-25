@@ -32,6 +32,31 @@
             $this->assertEquals($name, $result);
         }
 
+        function test_getDate()
+        {
+            //Arrange
+            $name = "Steve Beekman";
+            $date = "2015-08-23";
+            $test_student = new Student($name, $date);
+            //Act
+            $result = $test_student->getDate();
+            //Assert
+            $this->assertEquals($date, $result);
+        }
+
+        function test_getId()
+        {
+            //Arrange
+            $name = "Steve Beekman";
+            $date = "2015-08-23";
+            $id = 1;
+            $test_student = new Student($name, $date, $id);
+            //Act
+            $result = $test_student->getId();
+            //Assert
+            $this->assertEquals(true, is_numeric($result));
+        }
+
         function test_getAll()
         {
             //Arange
@@ -66,6 +91,47 @@
 
             //Assert
             $this->assertEquals($test_student, $result[0]);
+        }
+
+        function test_update()
+        {
+            //Arange
+            $name = "Steve Beekman";
+            $date = "2015-08-23";
+            $test_student = new Student($name, $date);
+            $test_student->save();
+
+            $name2 = "Fred Flintstone";
+            $date2 = "0001-01-01";
+            $test_student->update($name2, $date2);
+
+            //Act
+            $id = $test_student->getId();
+            $result = new Student($name2, $date2, $id);
+
+            //Assert
+            $this->assertEquals(Student::find($id), $result);
+        }
+
+        function test_delete()
+        {
+            //Arange
+            $name = "Steve Beekman";
+            $date = "2015-08-23";
+            $test_student = new Student($name, $date);
+            $test_student->save();
+
+            $name2 = "Fred Flintstone";
+            $date2 = "0001-01-01";
+            $test_student2 = new Student($name2, $date2);
+            $test_student2->save();
+
+            //Act
+            $test_student->delete();
+            $result = Student::getAll();
+
+            //Assert
+            $this->assertEquals([$test_student2], $result);
         }
 
         function test_deleteAll()

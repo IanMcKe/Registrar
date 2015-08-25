@@ -51,6 +51,29 @@
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
+        function updateName($new_name)
+        {
+            $GLOBALS['DB']->exec("UPDATE students SET name = '{$new_name}' WHERE id={$this->getId()};");
+            $this->name = $new_name;
+        }
+
+        function updateDate($new_date)
+        {
+            $GLOBALS['DB']->exec("UPDATE students SET date = '{$new_date}' WHERE id={$this->getId()};");
+            $this->date = $new_date;
+        }
+
+        function update($new_name, $new_date)
+        {
+            $this->updateName($new_name);
+            $this->updateDate($new_date);
+        }
+
+        function delete()
+        {
+            $GLOBALS['DB']->exec("DELETE FROM students WHERE id = {$this->getId()};");
+        }
+
         static function getAll()
         {
             $returned_students = $GLOBALS['DB']->query("SELECT * FROM students ORDER BY name;");

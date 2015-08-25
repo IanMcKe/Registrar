@@ -78,6 +78,43 @@
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
+        function updateTitle($new_title)
+        {
+            $GLOBALS['DB']->exec("UPDATE courses SET title = '{$new_title}' WHERE id = {$this->getId()};");
+            $this->title = $new_title;
+        }
+
+        function updateTeacher($new_teacher)
+        {
+            $GLOBALS['DB']->exec("UPDATE courses SET teacher = '{$new_teacher}' WHERE id = {$this->getId()};");
+            $this->teacher = $new_teacher;
+        }
+
+        function updateTime($new_time)
+        {
+            $GLOBALS['DB']->exec("UPDATE courses SET time = '{$new_time}' WHERE id = {$this->getId()};");
+            $this->time = $new_time;
+        }
+
+        function updateSemester($new_semester)
+        {
+            $GLOBALS['DB']->exec("UPDATE courses SET semester = '{$new_semester}' WHERE id = {$this->getId()};");
+            $this->semester = $new_semester;
+        }
+
+        function update($new_title, $new_teacher, $new_time, $new_semester)
+        {
+            $this->updateTitle($new_title);
+            $this->updateTeacher($new_teacher);
+            $this->updateTime($new_time);
+            $this->updateSemester($new_semester);
+        }
+
+        function delete()
+        {
+            $GLOBALS['DB']->exec("DELETE FROM courses WHERE id = {$this->getId()};");
+        }
+
         static function getAll()
         {
             $returned_courses = $GLOBALS['DB']->query("SELECT * FROM courses ORDER BY title;");
@@ -97,6 +134,19 @@
         static function deleteAll()
         {
             $GLOBALS['DB']->exec("DELETE FROM courses;");
+        }
+
+        static function find($search_id)
+        {
+            $found_course  = NULL;
+            $courses = Course::getAll();
+            foreach($courses as $course) {
+                $course_id = $course->getId();
+                if($course_id == $search_id){
+                    $found_course = $course;
+                }
+            }
+            return $found_course;
         }
     }
 ?>
