@@ -97,6 +97,12 @@
         return $app['twig']->render('student.html.twig', array('student'=>$student, 'courses'=>$student->getCourses(), 'all_courses'=>Course::getAll()));
     });
 
+    $app->delete("/courses/{id}", function($id) use ($app) {
+        $course = Course::find($id);
+        $course->delete();
+        return $app['twig']->render('courses.html.twig', array('courses' => Course::getAll()));
+    });
+
 
 
     return $app;
